@@ -45,19 +45,51 @@ User Stories
 ------------
 
 As a Fred Flintstone wannabe,
-So that I can keep track of my bowling game like my stone age idol,
-I would like to be able to add my points to add scorecard.
+So that I can be like my stone age idol,
+I would like to be able to bowl for ten frames.
+
+As a Fred Flintstone wannabe,
+So that I can play a proper game,
+I would like to be able to input the number of pins hit as between 0 and 10.
+
+As a Fred Flintstone wannabe,
+So that I can keep track of my bowling game,
+I would like to be able to add my points to a scorecard.
 
 As a Fred Flintstone wannabe,
 So that I can improve on my score,
-I would like to have bonus points added if I've bowled a spare or a strike.
+I would like to have bonus points added to my score if I've bowled a spare or a strike.
 
 As a Fred Flintstone wannabe,
 So that I can keep track of my bowling game,
 I would like to be able to see all of my points and my overall score.
 
+As a Fred Flintstone equivalent,
+So that I can 
+I would like to see that I have 300 points.
 
+
+
+Testing
+=======
+
+This will be tested with Jasmine.
 
 Feature Tests
 -------------
 
+* Player starts game
+
+	* Player inputs their name
+
+	* Player has ten frames to add their score into
+
+* Player bowls and for each of their turns
+
+	* They can add points to their scorecard
+
+	* They can see their overall score
+
+	* Bonus points are added if they've bowled a spare
+
+	* Bonus points are added if they've bowled a strike
