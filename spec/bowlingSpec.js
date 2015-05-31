@@ -11,7 +11,7 @@ describe('Bowling', function() {
 	});
 
 	it('can add points to scorecard when they play', function() {
-		bowling.addPoints(5);
+		bowling.addPointsToScorecard(5);
 		expect(bowling.scorecard).toEqual(5);
 	});
 
@@ -20,7 +20,7 @@ describe('Bowling', function() {
 	});
 
 	it('will only let player input scores for ten frames', function() {
-		for (i=1; i<10; i++) {
+		for (var i=1; i<10; i++) {
 		bowling.addPointsToFrame(3,3)};
 		expect(bowling.howManyFramesNow).toEqual(10);
 	});
@@ -33,6 +33,7 @@ describe('Bowling', function() {
 		expect(bowling.framepoints).toEqual([[4,3]]);
 		bowling.addPointsToFrame(6,3);
 		expect(bowling.framepoints).toEqual([[4,3],[6,3]]);
+		expect(bowling.scorecard).toEqual(16);
 	});
 
 	it('player can only add one set of points if they\'ve bowled a strike', function() {
@@ -44,12 +45,15 @@ describe('Bowling', function() {
 	it('can only add between 0 and 10 points per frame', function(){
 		bowling.addPointsToFrame(7,7);
 		expect(bowling.howManyFramesNow).toEqual(1);
-		expect(bowling.scorecard).toEqual(0);
+		expect(bowling.scorecard).toEqual(7);
 	});
 
-	xit('shows player their overall score', function() {
-		// can just use this.scorecard, but keep this test in case I want a function for it
+	it('can calculate the bonus score when player has rolled a spare', function() {
+		bowling.addPointsToFrame(6,4);
+		bowling.addPointsToFrame(7,2);
+		expect(bowling.scorecard).toEqual(26);
 	});
 
 });
+
 
