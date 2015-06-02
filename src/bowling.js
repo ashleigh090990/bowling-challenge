@@ -25,35 +25,26 @@ function Bowling() {
 	};
 
 	Bowling.prototype.noBonusScoreToAdd = function(firstpoint,secondpoint) {
-		this.addPointsToScorecard(firstpoint);
-		this.addPointsToScorecard(secondpoint);
+		this.addFirstAndSecondPoints(firstpoint, secondpoint);
 		this.moveToNextFrame();
 		(this.framepoints).push([firstpoint, secondpoint]);
+	};
+
+	Bowling.prototype.addFirstAndSecondPoints = function(firstpoint, secondpoint) {
+		this.addPointsToScorecard(firstpoint);
+		this.addPointsToScorecard(secondpoint);
 	};
 
 	Bowling.prototype.bonusScoreForStrike = function(firstpoint, secondpoint) {
 		var currentFrameIndex = (this.framepoints).length;
 		var frameBeforeCurrent = this.framepoints[currentFrameIndex-1];
-		this.addPointsToScorecard(firstpoint);
-		this.addPointsToScorecard(secondpoint);
-		if (currentFrameIndex[1] === 0) {
+		var frameBeforePrevious = this.framepoints[currentFrameIndex-2]
+		if ((this.howManyFramesNow > 2) && (frameBeforeCurrent[1] === 0) && (frameBeforePrevious[1] === 0)) {
+			this.addFirstAndSecondPoints(firstpoint, secondpoint);
 			this.addPointsToScorecard(firstpoint);
+		} else {
+			this.addFirstAndSecondPoints(firstpoint, secondpoint);
 		};
-
-		// if ((frameBeforeCurrent[0]===10)) {
-		// 	this.addPointsToScorecard(firstpoint);
-		// 	this.noBonusScoreToAdd(firstpoint, secondpoint);
-		// } else {
-		// 	this.addPointsToScorecard(firstpoint);
-		// };
-
-
-// if frameBeforeCurrent[1] === 0
-// 	then add currentFrame[0]
-// else
-// 	var sumOfFrame = firstpoint + secondpoint
-// 	add the next two addPointsToScorecard(sumOfFrame)
-
 	};
 
 	Bowling.prototype.moveToNextFrame = function() {

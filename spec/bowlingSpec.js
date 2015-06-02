@@ -62,9 +62,10 @@ describe('Bowling', function() {
 	});
 
 	it('can calculate the bonus score when player has rolled a strike', function() {
+		bowling.addPointsToFrame(2,4);
 		bowling.addPointsToFrame(10,0);
 		bowling.addPointsToFrame(7,2);
-		expect(bowling.scorecard).toEqual(28);
+		expect(bowling.scorecard).toEqual(34);
 	});
 
 	it('can calculate the bonus score when player has rolled two strikes in a row', function() {
@@ -75,24 +76,6 @@ describe('Bowling', function() {
 		expect(bowling.scorecard).toEqual(61);
 	});
 
-	// HERE!!!
-
-	// [[10,0],[10,0],[7,2]]
-
-	// 10 + (10 + 7) = 27
-	// 10 + (7 + 2) = 19
-	// 7 + 2 = 9
-	// 55
-
-	// 10 + 10 + 7
-	// 10 + 7 + 2
-	// 7 + 2
-
-
-	// 27 + 19 + 9
-	// 46 + 9
-	// 55
-
 	it('can calculate the bonus score when player has rolled two strikes in a row', function() {
 		bowling.addPointsToFrame(2,4);
 		bowling.addPointsToFrame(10,0);
@@ -101,18 +84,11 @@ describe('Bowling', function() {
 		expect(bowling.scorecard).toEqual(53);
 	});
 
-	// 10 + (10 + 3) = 23
-	// 10 + (3 + 4) = 17
-	// 3 + 4 = 7
-	// 47
-
 	xit('can calculate the score when a player rolls a perfect game', function() {
-		for (var i=1; i<11; i++) {
-			bowling.addPointsToFrame(10,0);
+		for (var i=1; i<10; i++) {
+			bowling.addPointsToFrame(10,0)
 		};
 		expect(bowling.scorecard).toEqual(300);
 	});
 
 });
-
-
