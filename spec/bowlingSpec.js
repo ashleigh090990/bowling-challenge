@@ -55,23 +55,20 @@ describe('Bowling', function() {
 		expect(bowling.scorecard).toEqual(26);
 	});
 
-	// 6 + 4 (+ 7)
-	// 7 + 2
-
-	xit('can calculate the bonus score when player has rolled a spare', function() {
+	it('can calculate the bonus score when player has rolled a spare', function() {
 		bowling.addPointsToFrame(6,4);
 		bowling.addPointsToFrame(2,2);
 		expect(bowling.scorecard).toEqual(16);
 	});
 
-	xit('can calculate the bonus score when player has rolled a strike', function() {
+	it('can calculate the bonus score when player has rolled a strike', function() {
 		bowling.addPointsToFrame(2,4);
 		bowling.addPointsToFrame(10,0);
 		bowling.addPointsToFrame(7,2);
 		expect(bowling.scorecard).toEqual(34);
 	});
 
-	xit('can calculate the bonus score when player has rolled two strikes in a row', function() {
+	it('can calculate the bonus score when player has rolled two strikes in a row', function() {
 		bowling.addPointsToFrame(2,4);
 		bowling.addPointsToFrame(10,0);
 		bowling.addPointsToFrame(10,0);
@@ -79,7 +76,7 @@ describe('Bowling', function() {
 		expect(bowling.scorecard).toEqual(61);
 	});
 
-	xit('can calculate the bonus score when player has rolled two strikes in a row', function() {
+	it('can calculate the bonus score when player has rolled two strikes in a row', function() {
 		bowling.addPointsToFrame(2,4);
 		bowling.addPointsToFrame(10,0);
 		bowling.addPointsToFrame(10,0);
@@ -87,7 +84,7 @@ describe('Bowling', function() {
 		expect(bowling.scorecard).toEqual(53);
 	});
 
-	xit('can calculate the bonus score when player has rolled three strikes in a row', function() {
+	it('can calculate the bonus score when player has rolled three strikes in a row', function() {
 		bowling.addPointsToFrame(2,4);
 		bowling.addPointsToFrame(10,0);
 		bowling.addPointsToFrame(10,0);
@@ -96,19 +93,28 @@ describe('Bowling', function() {
 		expect(bowling.scorecard).toEqual(83);
 	});
 
-	xit('on the tenth frame, when a player rolls a strike, they can roll again', function() {
-		for (var i=1; i<9; i++) {
-			bowling.moveToNextFrame();
+	it('only lets player input scores for ten frames', function() {
+		for (var i=1; i<11; i++) {
+			bowling.addPointsToFrame(1,1);
+		};
+		expect(bowling.addPointsToFrame(2,2));
+		expect(bowling.framepoints.length).toEqual(10);
+	});
+
+	xit('on the tenth frame, when a player rolls a strike, they can roll one more time again', function() {
+		for (var i=1; i<10; i++) {
+			bowling.addPointsToFrame(1,1);
 		};
 		bowling.addPointsToFrame(10,0);
-		// expect(bowling.framepoints).toEqual([10,0]);
+		bowling.addPointsToFrame(1,0);
+		expect(bowling.framepoints).toEqual([[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[10,0],[1]]);
 	});
 
 	xit('can calculate the score when a player rolls a perfect game', function() {
-		for (var i=1; i<11; i++) {
+		for (var i=1; i<10; i++) {
 			bowling.addPointsToFrame(10,0)
 		};
-		expect(bowling.scorecard).toEqual(300);
+		expect(bowling.scorecard).toEqual(290);
 	});
 
 });
