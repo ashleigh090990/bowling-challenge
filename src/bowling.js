@@ -20,7 +20,7 @@ function Bowling() {
 	};
 
 	Bowling.prototype.addPointsToFrame = function(point) {
-		if ((point > 10) || (this.isThisSetTenOrLess() === false)) {
+		if ((point > 10) || ((this.howManyPointsRecorded > 1) && (this.isThisSetTenOrLess() === false))) {
 			this.addPointsToScorecard(0);
 		} else if ((point === 10) && (this.ifFirstPointInSet() === true)) {
 			this.pushPointToFrame(point);
@@ -28,6 +28,9 @@ function Bowling() {
 			this.addZeroAfterStrike();
 		} else {
 			this.pushPointToFrame(point);
+			this.addPointsToScorecard(point);
+		};
+		if (this.previousSetIsSpare() === true) {
 			this.addPointsToScorecard(point);
 		};
 	};
@@ -40,11 +43,24 @@ function Bowling() {
 		return (this.howManyPointsRecorded % 2 === 0);
 	};
 
-	Bowling.prototype.isThisSetTenOrLess = function(secondpoint) {
-		if (this.ifFirstPointInSet() === false) {
+	Bowling.prototype.isThisSetTenOrLess = function(point) {
+		if (this.howManyPointsRecorded = 1) {
+			return true			
+		} else {
+			return (point <= 10);
 			var firstPointIndex = this.framepoints.length - 1;
-			var sumOfSet = this.framepoints[firstPointIndex] + secondpoint;
-			return ( sumOfSet <= 10);
+			var sumOfSet = this.framepoints[firstPointIndex] + point;
+			return (sumOfSet <= 10);
+		};
+	};
+
+	Bowling.prototype.previousSetIsSpare = function() {
+		if ((this.howManyPointsRecorded >= 2) && (this.ifFirstPointInSet())) {
+			var previousFrameIndex = (this.framepoints).length-2;
+			var frameBeforePreviousIndex = previousFrameIndex - 1;
+			var previousFrame = this.framepoints[previousFrameIndex];
+			var frameBeforePrevious = this.framepoints[frameBeforePreviousIndex];
+			return ((frameBeforePrevious < 10) && (frameBeforePrevious + previousFrame === 10));
 		};
 	};
 
@@ -107,16 +123,6 @@ function Bowling() {
 		} else {
 			this.addFirstAndSecondPoints(point);
 		};
-	};
-
-	Bowling.prototype.conditionForSpare = function() {
-		var frameBeforeCurrentIndex = (this.framepoints).length -1;
-		var frameBeforeCurrent = this.framepoints[frameBeforeCurrentIndex];
-		var sumOfEachFrame = 0;
-		for (var i=0; i<2; ++i) {
-			sumOfEachFrame += frameBeforeCurrent[i];
-		};	
-		return (sumOfEachFrame === 10);
 	};
 
 	Bowling.prototype.sumOfFrame = function(point) {
