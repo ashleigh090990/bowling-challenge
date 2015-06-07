@@ -20,19 +20,47 @@ function Bowling() {
 	};
 
 	Bowling.prototype.addPointsToFrame = function(point) {
-		if ((point > 10) || ((this.howManyPointsRecorded > 1) && (this.isThisSetTenOrLess() === false))) {
-			this.addPointsToScorecard(0);
-		} else if ((point === 10) && (this.ifFirstPointInSet() === true)) {
+		if ((this.previousSetIsSpare() === true) && (this.isThisSetTenOrLess() === true)) {
 			this.pushPointToFrame(point);
+			this.addPointsToScorecard(point);
+		};
+		if ((this.isThisSetTenOrLess() === true) && (point <= 10)) {
+			this.pushPointToFrame(point);
+		};
+		if ((point === 10) && (this.ifFirstPointInSet() === true)) {
 			this.addPointsToScorecard(point);
 			this.addZeroAfterStrike();
-		} else {
-			this.pushPointToFrame(point);
-			this.addPointsToScorecard(point);
 		};
-		if (this.previousSetIsSpare() === true) {
-			this.addPointsToScorecard(point);
-		};
+
+
+
+
+
+		// if ((point > 10) || ((this.howManyPointsRecorded > 1) && (this.isThisSetTenOrLess() === false))) {
+		// 	this.addPointsToScorecard(0);
+		// };
+		// if (this.previousSetIsSpare() === true) {
+		// 	this.moveToNextFrame();
+		// 	this.pushPointToFrame(point);
+		// 	this.addPointsToScorecard(point);
+		// };
+		// if (this.previousSetIsStrike() === true) {
+		// 	var previousFrameIndex = this.framepoints.length - 1;
+		// 	var previousFrame = this.framepoints[previousFrameIndex]
+		// 	this.addPointsToScorecard(previousFrame);
+		// 	this.addPointsToScorecard(point);
+		// };
+		// if ((point === 10) && (this.ifFirstPointInSet() === true)) {
+		// 	this.moveToNextFrame();
+		// 	this.moveToNextFrame();
+		// 	this.addPointsToScorecard(point);
+		// 	this.addZeroAfterStrike();
+		// };
+		// if (this.isThisSetTenOrLess() === true) {
+		// 	this.moveToNextFrame();
+		// 	this.pushPointToFrame(point);
+		// 	this.addPointsToScorecard(point);
+		// };
 	};
 
 	Bowling.prototype.addZeroAfterStrike = function() {
@@ -56,7 +84,7 @@ function Bowling() {
 
 	Bowling.prototype.previousSetIsSpare = function() {
 		if ((this.howManyPointsRecorded >= 2) && (this.ifFirstPointInSet())) {
-			var previousFrameIndex = (this.framepoints).length-2;
+			var previousFrameIndex = (this.framepoints).length - 2;
 			var frameBeforePreviousIndex = previousFrameIndex - 1;
 			var previousFrame = this.framepoints[previousFrameIndex];
 			var frameBeforePrevious = this.framepoints[frameBeforePreviousIndex];
@@ -64,7 +92,17 @@ function Bowling() {
 		};
 	};
 
-
+	Bowling.prototype.previousSetIsStrike = function() {
+		if ((this.howManyPointsRecorded >= 2) && this.ifFirstPointInSet() === true) {
+			var previousFrameIndex = (this.framepoints).length - 1;
+			var frameBeforePreviousIndex = previousFrameIndex - 1;
+			var thirdFrameBeforeIndex = frameBeforePreviousIndex - 1;
+			var previousFrame = this.framepoints[previousFrameIndex];
+			var frameBeforePrevious = this.framepoints[frameBeforePreviousIndex];
+			var thirdFrameBefore = this.framepoints[thirdFrameBeforeIndex];
+			return ((thirdFrameBefore === 10) && (frameBeforePrevious + thirdFrameBefore === 10));
+		};
+	};
 
 		// if ((this.howManyPointsRecorded > 1) && (this.conditionForStrike()) && (this.framepoints.length < maximumFrames)) {
 		// 	this.bonusScoreForStrike(firstpoint, secondpoint);
@@ -103,15 +141,6 @@ function Bowling() {
 
 
 
-	Bowling.prototype.noBonusScoreToAdd = function(point) {
-		this.addFirstAndSecondPoints(point);
-		this.moveToNextFrame();
-		(this.framepoints).push([point]);
-	};
-
-	Bowling.prototype.addFirstAndSecondPoints = function(point) {
-		this.addPointsToScorecard(point);
-	};
 
 	Bowling.prototype.bonusScoreForStrike = function(point) {
 		var currentFrameIndex = (this.framepoints).length;
@@ -127,16 +156,6 @@ function Bowling() {
 
 	Bowling.prototype.sumOfFrame = function(point) {
 		var number = point;
-	};
-
-	Bowling.prototype.isTenOrLess = function(point) {
-		return (point) <= 10;
-	};
-
-	Bowling.prototype.isMoreThanTen = function(point) {
-		if (this.isTenOrLess(point) === false) {
-			return true;
-		};
 	};
 
 };

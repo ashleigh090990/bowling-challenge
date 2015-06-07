@@ -30,34 +30,27 @@ describe('Bowling', function() {
 		expect(bowling.scorecard).toEqual(16);
 	});
 
+
+
+
+
+
+
+
+
 	it('zero is automatically added to the framepoints if player has bowled a strike', function() {
 		bowling.addPointsToFrame(10);
-		expect(bowling.howManyPointsRecorded).toEqual(2);
+		// expect(bowling.howManyPointsRecorded).toEqual(2);
 		expect(bowling.scorecard).toEqual(10);
 		expect(bowling.framepoints).toEqual([10,0]);
 	});
 
 	it('will only let player input between 0 and 10 points', function(){
 		bowling.addPointsToFrame(14);
-		expect(bowling.howManyPointsRecorded).toEqual(0);
+		// expect(bowling.howManyPointsRecorded).toEqual(0);
 		expect(bowling.scorecard).toEqual(0);
+		expect(bowling.framepoints).toEqual([]);
 	});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	it('can calculate the bonus score when player has rolled a spare', function() {
 		bowling.addPointsToFrame(6);
@@ -67,25 +60,28 @@ describe('Bowling', function() {
 		expect(bowling.scorecard).toEqual(26);
 	});
 
-
-
-
-
-
-
-
-	
-
-	xit('can calculate the bonus score when player has rolled a spare', function() {
-		bowling.addPointsToFrame(6,4);
-		bowling.addPointsToFrame(2,2);
+	it('can calculate the bonus score when player has rolled a spare', function() {
+		bowling.addPointsToFrame(6);
+		bowling.addPointsToFrame(4);
+		bowling.addPointsToFrame(2);
+		bowling.addPointsToFrame(2);
 		expect(bowling.scorecard).toEqual(16);
 	});
 
-	xit('can calculate the bonus score when player has rolled a strike', function() {
-		bowling.addPointsToFrame(2,4);
-		bowling.addPointsToFrame(10,0);
-		bowling.addPointsToFrame(7,2);
+	it('can calculate the bonus score when player has rolled a spare', function() {
+		bowling.addPointsToFrame(6);
+		bowling.addPointsToFrame(4);
+		bowling.addPointsToFrame(5);
+		bowling.addPointsToFrame(2);
+		expect(bowling.scorecard).toEqual(22);
+	});
+
+	it('can calculate the bonus score when player has rolled a strike', function() {
+		bowling.addPointsToFrame(2);
+		bowling.addPointsToFrame(4);
+		bowling.addPointsToFrame(10);
+		bowling.addPointsToFrame(7);
+		bowling.addPointsToFrame(2);
 		expect(bowling.scorecard).toEqual(34);
 	});
 
